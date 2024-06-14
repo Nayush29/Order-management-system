@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="icon" href="/static/icon/Dashboard.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/static/css/Dashboard.css" />
+</head>
+
+<body id="body">
+  <header>
+    <h1>Dashboard</h1>
+    <div class="time" id="currentDateTime"></div>
+    <div>
+      <button class="logout-button" id="logout">
+        <img src="/static/icon/Additional_icon/logout.svg" alt="Logout Icon" title="Logout">
+      </button>
+    </div>
+  </header>
+  <main class="dashboard">
+    <div class="options">
+      <div class="menu-option" onclick="showSalesReport()">Sales Report</div>
+      <div class="menu-option" onclick="showMenuEditor()">Menu Editor</div>
+      <div class="menu-option" onclick="showEmployeeDetails()">Employee Details</div>
+      <div class="menu-option" onclick="showCustomerDetails()">Customer Details</div>
+      <div class="menu-option" onclick="showFeedbackReviews()">Feedback and Reviews</div>
+    </div>
+
+    <div class="tool" id="optionsSection">
+      <h1>Welcome to Dashboard.</h1>
+    </div>
+
+    <div id="Confirmation-Modal" class="modal1">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Confirmation</h2>
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <p id="modalText">Are you sure you want to perform this action?</p>
+        </div>
+        <div class="modal-footer">
+          <button id="confirmBtn">Yes</button>
+          <button id="cancelBtn">No</button>
+        </div>
+      </div>
+    </div>
+    <div id="passwordModal" class="modal" aria-hidden="true" aria-labelledby="modalTitleAdmin">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modalTitleAdmin">Admin Login</h2>
+          <span id="close" class="close">&times;</span>
+        </div>
+        <form class="custom-form" id="adminLoginForm">
+          <input type="hidden" name="action_type" value="authentication">
+          <div class="form-group1">
+            <label for="adminUsername">Admin Username:</label>
+            <input name="adminUsername" id="adminUsername" placeholder="Enter admin username" required />
+          </div>
+          <div class="form-group1">
+            <label for="adminPassword">Admin Password:</label>
+            <input type="password" name="new-password" id="adminPassword" placeholder="Enter admin password" required />
+          </div>
+          <button type="submit" class="btn">Login</button>
+        </form>
+      </div>
+    </div>
+    <div class="modal" id="DocumentModal">
+      <div class="modal-content1">
+        <div class="modal-header1">
+          <h2>Employee Documents</h2>
+          <span id="Close1" class="close">&times;</span>
+        </div>
+        <div class="table-container1">
+          <table class="table1">
+            <thead>
+              <tr>
+                <th>Document Name</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="documentList">
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer1">
+          <button id="Close">Close</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>&copy; 2024 Order management system</footer>
+  <script src="/static/script/dashboard.js" defer></script>
+</body>
+
+</html>

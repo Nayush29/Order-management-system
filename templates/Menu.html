@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/static/icon/menu.svg" type="image/svg+xml" />
+  <title>Restaurant Menu</title>
+  <link rel="stylesheet" href="/static/css/Menu.css" />
+</head>
+
+<body>
+  <div class="loading-overlay">
+    <span class="loader"></span>
+  </div>
+
+  <header class="header">
+    <div class="heading">
+      <h2>Menu</h2>
+    </div>
+    <div class="details">
+      <div class="bill" id="details" role="button">
+        <a class="bill-link">
+          <img src="static/icon/Additional_icon/bill.svg" type="image/svg+xml" />
+          <h3>Bill</h3>
+        </a>
+      </div>
+      <div class="option">
+        <label class="icon-menu" id="icon-menu" onclick="toggleMenu()">
+          <div class="bar bar--1"></div>
+          <div class="bar bar--2"></div>
+          <div class="bar bar--3"></div>
+        </label>
+        <div id="menuOptions" class="menu-options">
+          <ul>
+            <li>
+              <a href="#" id="login"><span>Login</span></a>
+            </li>
+            <li>
+              <a href="#" id="logout"><span>Logout</span></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="menu">
+      <div class="categories">
+        <div class="categories_heading">
+          <h2>Categories</h2>
+        </div>
+        <div class="category_section">
+          {% set displayed_categories = [] %} {% for item in menu_items %} {%
+          if item.category_name not in displayed_categories %}
+          <div class="category" data-category-id="{{ item.category_id }}">
+            <div class="category_image">
+              <a href="#"><img
+                  src="{% if item.category_image == None %}/static/images/Additional_images/coming_soon.jpg{% else %}data:image/jpeg;base64,{{ item.category_image }}{% endif %}"
+                  alt="{{ item.category_name }}" /></a>
+            </div>
+            <div class="category_name">
+              <p>{{ item.category_name }}</p>
+            </div>
+          </div>
+          {% set _ = displayed_categories.append(item.category_name) %} {%
+          endif %} {% endfor %}
+        </div>
+      </div>
+      <hr />
+      <div class="dishes">
+        <div class="dish_heading">
+          <h2>Dishes</h2>
+        </div>
+        <div class="dishe-list">
+          {% for item in menu_items %}
+          <div class="product" data-category-id="{{ item.category_id }}">
+            <a><img
+                src="{% if item.menu_image == None %}/static/images/Additional_images/coming_soon.jpg{% else %}data:image/jpeg;base64,{{ item.menu_image }}{% endif %}"
+                alt="{{ item.menu_name }}" /></a>
+            <div class="info-container">
+              <div class="product-name">{{ item.menu_name }}</div>
+              <div class="type">
+                {% if item.is_veg %}
+                <img src="static/icon/Additional_icon/veg.svg" alt="Vegetarian" />
+                {% else %}
+                <img src="static/icon/Additional_icon/non-veg.svg" alt="Non-Vegetarian" />
+                {% endif %}
+              </div>
+            </div>
+            <div class="price-details">
+              <div class="price">
+                Rs{{ '%.0f' | format(item.price) }}
+                <div class="buttons" id="Button-{{ item.menu_item_id }}" role="button"
+                  onclick="toggleQuantity('Button-{{ item.menu_item_id }}','{{ item.menu_name }}','{{ item.price }}','{{item.menu_image}}')">
+                  ADD
+                </div>
+                <div class="quantity-container" id="Quantity-{{ item.menu_item_id }}" role="button">
+                  <div class="quantity-button" onclick="updateQuantity('{{ item.menu_item_id }}','decrement')"
+                    role="button">
+                    -
+                  </div>
+                  <input disabled class="quantity-input" id="quantity-input-{{ item.menu_item_id }}" type="number"
+                    max="5" />
+                  <div class="quantity-button" onclick="updateQuantity('{{ item.menu_item_id }}','increment')"
+                    role="button">
+                    +
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <div class="cart" id="cart">
+      <div class="cart-icon" id="cart-icon" role="button">
+        <img src="static/icon/Additional_icon/cart-icon.svg" alt="Menu Icon" type="image/svg+xml" />
+      </div>
+      <div class="items"><span id="cart-quantity">0</span>-Item</div>
+      <div class="total">₹<span id="cart-total">0.00</span></div>
+    </div>
+
+    <div class="checkout">
+      <div class="checkout-modal">
+        <div class="top">
+          <h2>Your Order Summary</h2>
+          <span class="close-btn">&times;</span>
+        </div>
+        <div class="Plate-product-list"></div>
+        <div class="bottom">
+          <div class="special_instructions">
+            <label for="special-instructions">Special Instructions:</label>
+            <textarea type="text" id="special-instructions" name="special-instructions"></textarea>
+          </div>
+          <div class="bill-details-container">
+            <h3>Bill Details</h3>
+            <div class="bill-detail">
+              <p class="bill-label">Total Items</p>
+              <p class="bill-Items">0</p>
+            </div>
+            <div class="bill-total">
+              <h4 class="total-label">Grand Total</h4>
+              <h4 class="total-amount">0</h4>
+            </div>
+          </div>
+        </div>
+        <div class="checkout-proceed">
+          <div class="checkout-button" onclick="checkout()">Place Order</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="orderDetailsModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Your Order Details</h2>
+          <span class="close">&times;</span>
+        </div>
+        <div id="orderDetailsContent" class="order-details"></div>
+        <div class="modal-footer">
+          <p>For additional details.</p>
+          <p>click on the bill option at the top.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" id="container">
+      <div id="modalSignin" class="form-wrapper1">
+        <div class="modal-header">
+          <h2>Sign in</h2>
+          <span class="close">&times;</span>
+        </div>
+        <form class="form login" id="signinForm">
+          <input type="number" name="number" placeholder="Phone number" required />
+          <input type="password" name="new-password" placeholder="Password" required />
+          <button type="submit">Sign in</button>
+        </form>
+        <p>
+          Don't have an account? <a href="#" id="registerLink">Register</a>
+        </p>
+        <small>By clicking Sign in, you agree to the terms of use.</small>
+      </div>
+      <div id="modalRegister" class="form-wrapper2">
+        <div class="modal-header">
+          <h2>Sign up</h2>
+          <span class="close">&times;</span>
+        </div>
+        <form class="form register" id="registerForm">
+          <input type="text" name="name" placeholder="Name" required />
+          <input type="number" name="number" placeholder="Phone number" required />
+          <input type="password" name="new-password" placeholder="Password" required />
+          <button type="submit">Sign up</button>
+        </form>
+        <p>Already have an account? <a href="#" id="loginLink">Login</a></p>
+        <small>By clicking Sign up, you agree to the terms of use.</small>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p class="footer-text">© 2024 Menu, Inc</p>
+    <ul class="footer-nav">
+      <li><a href="#" class="footer-link">Home</a></li>
+      <li><a href="#" class="footer-link">FAQs</a></li>
+      <li><a href="#" class="footer-link">About</a></li>
+    </ul>
+  </footer>
+  <script src="/static/script/menu.js" defer></script>
+</body>
+
+</html>

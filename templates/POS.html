@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/static/icon/pos.svg" type="image/svg+xml" />
+  <title>POS System</title>
+  <link rel="stylesheet" href="/static/css/POS.css" />
+</head>
+
+<body>
+  <header>
+    <h1>Pos</h1>
+    <div class="time" id="currentDateTime"></div>
+    <div>
+      <button class="logout-button" id="logout">
+        <img src="/static/icon/Additional_icon/logout.svg" alt="Logout Icon" title="Logout">
+      </button>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <div class="options">
+      <div class="menu-option" onclick="showOrderDetails()">Order Details</div>
+      <div class="menu-option" onclick="showPaymentProcessing()">Payment Processing</div>
+      <div class="menu-option" onclick="takeOrder()">Take Order</div>
+    </div>
+
+    <div class="tool" id="optionsSection">
+      <h1>Welcome to Pos.</h1>
+    </div>
+  </main>
+
+  <footer>&copy; 2024 Order management system</footer>
+  <script src="/static/script/pos.js" defer></script>
+</body>
+
+</html>

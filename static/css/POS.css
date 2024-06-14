@@ -1,0 +1,351 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono");
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+body {
+  margin: 0;
+  font-family: "Roboto Mono", monospace;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #1e2851, #293b5f);
+  padding: 20px;
+  color: #fff;
+}
+
+header h1 {
+  margin: 0;
+}
+
+.time {
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fff;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: transparent;
+  color: black;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.dashboard {
+  display: flex;
+  padding: 5px;
+  margin-bottom: 40px;
+}
+
+.options {
+  padding: 20px;
+  text-align: center;
+  background: linear-gradient(90deg, #999999, #ffffff);
+  border-radius: 10px 0 0 10px;
+  margin-top: 10px;
+}
+
+.options:hover,
+.tool:hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform: translateY(-4px);
+  box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1), 2px 2px 4px rgba(0, 0, 0, 0.1),
+    2px -2px 4px rgba(0, 0, 0, 0.1), -4px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.tool {
+  flex-grow: 1;
+  background: linear-gradient(-90deg, #999999, #ffffff);
+  border-radius: 0 10px 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.tool h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 70px;
+  color: #3e4c5e;
+  animation: fadeInScale 3s ease-in-out infinite;
+  margin: 0;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+@keyframes fadeInScale {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+
+  50% {
+    opacity: 0.1;
+    transform: scale(1.2);
+  }
+}
+
+.menu-option {
+  background: linear-gradient(to right, #6e8898, #485b6c);
+  border: none;
+  color: #fff;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 6px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.menu-option:hover {
+  background: linear-gradient(to left, #5d7688, #3e4c5e);
+}
+
+.logout-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.logout-button img {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+}
+
+.logout-button img:hover {
+  transform: translateY(4px);
+}
+
+.message-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 20px;
+  border-radius: 10px;
+  background-color: #333333;
+  color: #ffffff;
+  z-index: 10000;
+  opacity: 0;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.message-container.active {
+  opacity: 1;
+  text-align: center;
+  transform: translateY(0) scale(1);
+}
+
+.success {
+  text-align: center;
+  background: linear-gradient(to right, #00b894, #00cec9);
+}
+
+.error {
+  text-align: center;
+  background: linear-gradient(to right, #d63031, #ff7675);
+}
+
+.table2 {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table2 th,
+.table2 td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.table2 thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f8f9fa;
+  z-index: 1;
+  border-radius: 10px 10px 0 0;
+}
+
+.column {
+  height: 460px;
+  margin: 10px;
+  padding: 0 20px 20px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(40, 41, 41, 0.3);
+  overflow: auto;
+}
+
+.ready-to-serve-orders h3 {
+  margin: 10px;
+}
+
+.btn {
+  padding: 12px 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: medium;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  background: linear-gradient(to right, #4ea8de, #54b9ff);
+  background-color: #4ea8de;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(78, 168, 222, 0.3);
+}
+
+.btn:hover {
+  background: linear-gradient(to right, #54b9ff, #4ea8de);
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(78, 168, 222, 0.4);
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  transform: none;
+}
+
+.payment-processing-container {
+  display: flex;
+  padding: 10px;
+  gap: 5px;
+}
+
+.column1 {
+  height: 460px;
+  padding: 0 20px 20px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(40, 41, 41, 0.3);
+  overflow: auto;
+}
+
+.hr {
+  width: 100%;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 10px 0;
+}
+
+.payment-options {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+}
+
+select,
+input[type="number"] {
+  padding: 8px;
+  margin-top: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.button {
+  padding: 10px 15px;
+  margin: 5px;
+  border: none;
+  font-size: medium;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-success {
+  background: linear-gradient(to right, #4caf50, #388e3c);
+  color: white;
+}
+
+.btn-success:disabled {
+  cursor: not-allowed;
+}
+
+.btn-success:hover {
+  background: linear-gradient(to left, #45be63, #2f6d33);
+  box-shadow: 0 4px 8px rgba(58, 173, 64, 0.4);
+}
+
+.btn-danger {
+  background: linear-gradient(to right, #ff4b4b, #d32f2f);
+  color: white;
+}
+
+.btn-danger:disabled {
+  cursor: not-allowed;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(to left, #ff6262, #c62828);
+  box-shadow: 0 4px 8px rgba(232, 74, 74, 0.4);
+}
+
+.cash-amount {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.changeResult {
+  font-size: medium;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.pos-connection-section {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-select {
+  position: relative;
+  display: inline-block;
+}
+
+.custom-select label {
+  font-weight: bold;
+}
+
+.select-items {
+  background-color: #f9f9f9;
+  min-width: 200px;
+  display: block;
+}
+
+.select-item {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.select-item:last-child {
+  border-bottom: none;
+}
+
+.select-item input[type="checkbox"] {
+  margin-right: 10px;
+}

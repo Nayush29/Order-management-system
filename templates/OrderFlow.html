@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/icon/Orderflow.svg" type="image/svg+xml">
+    <title>Kitchen Order Display</title>
+    <link rel="stylesheet" href="/static/css/OrderFlow.css">
+</head>
+
+<body>
+    <header>
+        <h2>Kitchen Order Display</h2>
+        <div class="time" id="currentDateTime"></div>
+        <div>
+            <button class="logout-button" id="logout">
+                <img src="/static/icon/Additional_icon/logout.svg" alt="Logout Icon" title="Logout">
+            </button>
+        </div>
+    </header>
+    <main>
+        <div class="new-orders">
+            <div class="section-heading">
+                <h2>New Orders</h2>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Time Ordered</th>
+                            <th>Time Since Order</th>
+                            <th>Special Instructions</th>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                            <th>Update Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="new-order-table">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="completed-orders">
+            <div class="section-heading">
+                <h2>Completed Orders</h2>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Time Ordered</th>
+                            <th>Special Instructions</th>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="completed-orders-table">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <footer>&copy; 2024 Order management system</footer>
+    <script src="/static/script/orderflow.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/icon/Additional_icon/order.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/static/css/Additional_css/Order_Details.css" />
+    <title>Order Details</title>
+</head>
+
+<body>
+    <header class="header">
+        <button class="back-button" id="back-button"><img src="/static/images/Additional_images/back.png"
+                alt="Back"></button>
+        <h2>Order Details</h2>
+        <div class="option">
+            <label class="icon-menu" id="icon-menu" onclick="toggleMenu()">
+                <div class="bar bar--1"></div>
+                <div class="bar bar--2"></div>
+                <div class="bar bar--3"></div>
+            </label>
+            <div id="menuOptions" class="menu-options">
+                <ul>
+                    <li>
+                        <a href="#" id="login"><span>Login</span></a>
+                    </li>
+                    <li>
+                        <a href="#" id="logout"><span>Logout</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="card order-container">
+                <h2>Order Items</h2>
+                <div class="items-container">
+                    {% for item in items %}
+                    <div class="item-container">
+                        <div class="item-image-container">
+                            <img src="{% if item.item_image == None %}/static/images/Additional_images/coming_soon.jpg{% else %}data:image/jpeg;base64,{{ item.item_image }}{% endif %}"
+                                alt="{{ item.item_name }}" class="item-image" />
+                        </div>
+                        <div class="item-details">
+                            <div class="item-name">{{ item.item_name }}</div>
+                            <div class="item-price">Rs{{ item.price }}</div>
+                            <div class="item-status">{{ item.status }}</div>
+                        </div>
+                        <div class="quantity-container">
+                            <label for="quantity-input">Quantity</label>
+                            <input class="quantity-input" id="quantity-input" type="number" disabled="" max="5"
+                                value="{{ item.item_quantity }}">
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="card order_information">
+                <h2>Order Information</h2>
+                <p><strong>Order ID:</strong> {{ order.order_id }}</p>
+                <p><strong>Order Date:</strong> {{ order.order_date }}</p>
+                <p><strong>Total Price:</strong> <span class="total-price">RS.{{ order.total_price }}</span></p>
+                <p><strong>Total Quantity:</strong> {{ order.total_quantity }}</p>
+                <p><strong>Table Number:</strong> {{ order.table_number }}</p>
+                {% if order.special_instructions %}
+                <p><strong>Special Instructions:</strong> {{ order.special_instructions }}</p>
+                {% endif %}
+                {% if order.payment == 'waiter' %}
+                <p><strong>Payment Method:</strong> Pay to Waiter</p>
+                {% elif order.payment == 'online' %}
+                <p><strong>Payment Method:</strong> Pay Online</p>
+                {% endif %}
+                {% if not order.payment %}
+                <div class="pay-section">
+                    <button class="pay-button" id="pay" onclick="pay()">Pay</button>
+                </div>
+                {% endif %}
+            </div>
+            <div class="card feedback-review-section">
+                <h2>We Value Your Feedback</h2>
+                <div class="mega_arange" id="mega_arange">
+                    <div class="arange">
+                        <input type="hidden" id="order-id" name="orderId" value="{{ order.order_id }}">
+                        <input type="hidden" id="feedbackId" name="feedbackId" value="{{ order.feedback }}">
+                        <div class="rating-section">
+                            <p>Food Quality</p>
+                            <div class="star-rating" id="food-quality">
+                                <input type="radio" id="food-star5" name="food-quality" value="5">
+                                <label for="food-star5">5 stars</label>
+                                <input type="radio" id="food-star4" name="food-quality" value="4">
+                                <label for="food-star4">4 stars</label>
+                                <input type="radio" id="food-star3" name="food-quality" value="3">
+                                <label for="food-star3">3 stars</label>
+                                <input type="radio" id="food-star2" name="food-quality" value="2">
+                                <label for="food-star2">2 stars</label>
+                                <input type="radio" id="food-star1" name="food-quality" value="1">
+                                <label for="food-star1">1 star</label>
+                            </div>
+                        </div>
+                        <div class="rating-section">
+                            <p>Service</p>
+                            <div class="star-rating" id="service">
+                                <input type="radio" id="service-star5" name="service" value="5">
+                                <label for="service-star5">5 stars</label>
+                                <input type="radio" id="service-star4" name="service" value="4">
+                                <label for="service-star4">4 stars</label>
+                                <input type="radio" id="service-star3" name="service" value="3">
+                                <label for="service-star3">3 stars</label>
+                                <input type="radio" id="service-star2" name="service" value="2">
+                                <label for="service-star2">2 stars</label>
+                                <input type="radio" id="service-star1" name="service" value="1">
+                                <label for="service-star1">1 star</label>
+                            </div>
+                        </div>
+                        <div class="rating-section">
+                            <p>Ambience</p>
+                            <div class="star-rating" id="ambience">
+                                <input type="radio" id="ambience-star5" name="ambience" value="5">
+                                <label for="ambience-star5">5 stars</label>
+                                <input type="radio" id="ambience-star4" name="ambience" value="4">
+                                <label for="ambience-star4">4 stars</label>
+                                <input type="radio" id="ambience-star3" name="ambience" value="3">
+                                <label for="ambience-star3">3 stars</label>
+                                <input type="radio" id="ambience-star2" name="ambience" value="2">
+                                <label for="ambience-star2">2 stars</label>
+                                <input type="radio" id="ambience-star1" name="ambience" value="1">
+                                <label for="ambience-star1">1 star</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rating-section">
+                        <textarea id="feedback-review" placeholder="Leave your additional feedback here"></textarea>
+                        <button class="submit-feedback-review-button" id="submit-feedback-review">Share Your
+                            Experience</button>
+                    </div>
+                </div>
+                <div class="feedback-submitted-message" id="feedback-submitted-message">
+                    Thank you for your feedback!
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container2" id="container2">
+            <div id="modalSignin" class="form-wrapper1">
+                <div class="modal-header">
+                    <h2>Sign in</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <form class="form login" id="signinForm">
+                    <input type="number" name="number" placeholder="Phone number" required />
+                    <input type="password" name="new-password" placeholder="Password" required />
+                    <button type="submit">Sign in</button>
+                </form>
+                <p>
+                    Don't have an account? <a href="#" id="registerLink">Register</a>
+                </p>
+                <small>By clicking Sign in, you agree to the terms of use.</small>
+            </div>
+            <div id="modalRegister" class="form-wrapper2">
+                <div class="modal-header">
+                    <h2>Sign up</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <form class="form register" id="registerForm">
+                    <input type="text" name="name" placeholder="Name" required />
+                    <input type="number" name="number" placeholder="Phone number" required />
+                    <input type="password" name="new-password" placeholder="Password" required />
+                    <button type="submit">Sign up</button>
+                </form>
+                <p>Already have an account? <a href="#" id="loginLink">Login</a></p>
+                <small>By clicking Sign up, you agree to the terms of use.</small>
+            </div>
+        </div>
+        <div id="payModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Payment Method</h2>
+                    <span class="close" id="Close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="onlinePayment">
+                        <img src="/static/images/Additional_images/onlinePayment.png" alt="Back">
+                        <button id="onlinePaymentButton"
+                            onclick="onlinePaymentButton('{{ order.order_id }}', '{{ order.total_price }}', '{{ order.table_number }}','online')">Pay
+                            Online</button>
+                    </div>
+                    <div class="waiterPayment">
+                        <img src="/static/images/Additional_images/waiterPayment.png" alt="Back">
+                        <button id="waiterPaymentButton"
+                            onclick="waiterPaymentButton('{{ order.order_id }}', '{{ order.total_price }}', '{{ order.table_number }}','waiter')">Pay
+                            to Waiter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="/static/script/Additional_script/Order_details.js" defer></script>
+</body>
+
+</html>
